@@ -26,17 +26,50 @@ void PlayerMovementSystem::update(float deltaTime)
         auto &playerController = coordinator->getComponent<PlayerController>(entity);
         auto &transform = coordinator->getComponent<Transform>(entity);
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
-            transform._y -= 100 * deltaTime;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+            if (!playerController._jumping) {
+                playerController._jumping = true;
+                playerController._stoppedJumping = false;
+                playerController._speed = -600;
+                playerController._timeBigJump = 0;
+            }
+        } else {
+            if (playerController._jumping && !playerController._stoppedJumping) {
+                playerController._stoppedJumping = true;
+                playerController._jumping = true;
+            }
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            transform._y += 100 * deltaTime;
+
+        if (playerController._jumping && !playerController._stoppedJumping) {
+            playerController._speed -= 2000 * deltaTime;
+
+            playerController._timeBigJump += deltaTime;
+            if (playerController._timeBigJump > 0.2) {
+                playerController._stoppedJumping = true;
+            }
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-            transform._x -= 100 * deltaTime;
+
+        // position
+        if (abs(playerController._speed) < 200)
+            playerController._speed += 200 * deltaTime;
+        playerController._speed += 2000 * deltaTime;
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+            if (playerController._speed < 1200)
+                playerController._speed = 1200;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            transform._x += 100 * deltaTime;
+        if (playerController._speed > 2500)
+            playerController._speed = 2500;
+
+        transform._y += playerController._speed * deltaTime;
+
+        if (transform._y > 1080 - 100) {
+            transform._y = 1080 - 100;
+            playerController._speed = 0;
+            playerController._jumping = false;
+            playerController._stoppedJumping = false;
+        } else if (transform._y < 100) {
+            transform._y = 100;
         }
     }
 }

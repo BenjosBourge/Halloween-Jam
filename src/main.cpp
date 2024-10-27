@@ -15,6 +15,7 @@
 #include "../include/core/components/camera.hpp"
 #include "../include/components/playerController.hpp"
 #include "../include/core/components/boxCollider.hpp"
+#include "../include/components/level.hpp"
 
 bool isDebug()
 {
@@ -30,11 +31,19 @@ void createCamera(std::shared_ptr<Coordinator> coordinator)
     coordinator->addComponent<Tag>(camera, Tag("camera"));
 }
 
+void createLevel(std::shared_ptr<Coordinator> coordinator)
+{
+    Entity level = coordinator->createEntity();
+
+    coordinator->addComponent<Tag>(level, Tag("level"));
+    coordinator->addComponent<Level>(level);
+}
+
 void createPlayer(std::shared_ptr<Coordinator> coordinator)
 {
     Entity player = coordinator->createEntity();
 
-    coordinator->addComponent<Transform>(player, Transform(400, 300, 1, 1));
+    coordinator->addComponent<Transform>(player, Transform(300, 400, 1, 1));
     coordinator->addComponent<SpriteRenderer>(player, SpriteRenderer(TEXTURE_TYPE_EXAMPLE, 32, 32));
     coordinator->addComponent<Tag>(player, Tag("player"));
     coordinator->addComponent<PlayerController>(player);
@@ -46,20 +55,9 @@ int main()
     std::shared_ptr<Coordinator> coordinator = getCoordinator();
     createCamera(coordinator);
 
-
-    //put here your code to instanciate entities
+    createLevel(coordinator);
+    //put here your code to instantiate entities
     createPlayer(coordinator);
-
-    for (int i = 0; i < 300; i++) {
-        Entity entity = coordinator->createEntity();
-        coordinator->addComponent<Transform>(entity, Transform(rand() % 1920, rand() % 1080, 1, 1));
-        coordinator->addComponent<SpriteRenderer>(entity, SpriteRenderer(TEXTURE_TYPE_EXAMPLE, 32, 32));
-        coordinator->addComponent<Tag>(entity, Tag("enemy"));
-        coordinator->addComponent<BoxCollider>(entity, BoxCollider(32, 32));
-        auto &boxCollider = coordinator->_componentManager->getComponent<BoxCollider>(entity);
-        boxCollider._mode = COLLISION_MODE_DYNAMIC;
-    }
-
 
     if (serverRunning())
         return 0;

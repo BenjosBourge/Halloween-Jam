@@ -8,14 +8,8 @@
 #include <queue>
 #include <map>
 
-class PlayerController {
+class Level {
 public:
-    PlayerController();
-    ~PlayerController();
-
-    bool _jumping;
-    float _timeBigJump;
-    bool _stoppedJumping;
-
-    float _speed;
+    Level();
+    ~Level();
 };
