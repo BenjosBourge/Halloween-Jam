@@ -63,8 +63,8 @@ void PlayerMovementSystem::update(float deltaTime)
 
         transform._y += playerController._speed * deltaTime;
 
-        if (transform._y > 1080 - 100) {
-            transform._y = 1080 - 100;
+        if (transform._y > 1080 - 150) {
+            transform._y = 1080 - 150;
             playerController._speed = 0;
             playerController._jumping = false;
             playerController._stoppedJumping = false;

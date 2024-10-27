@@ -20,3 +20,5 @@
 #include "components/rigidBody.hpp"
 
 #include "../components/playerController.hpp"
+#include "../components/level.hpp"
+#include "../components/parralax.hpp"

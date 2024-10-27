@@ -16,6 +16,8 @@
 #include "../include/components/playerController.hpp"
 #include "../include/core/components/boxCollider.hpp"
 #include "../include/components/level.hpp"
+#include "../include/components/parralax.hpp"
+#include "../include/core/components/animator.hpp"
 
 bool isDebug()
 {
@@ -37,16 +39,54 @@ void createLevel(std::shared_ptr<Coordinator> coordinator)
 
     coordinator->addComponent<Tag>(level, Tag("level"));
     coordinator->addComponent<Level>(level);
+
+    for (int i = 0; i < 36; i++) {
+        Entity tile = coordinator->createEntity();
+        coordinator->addComponent<Transform>(tile, Transform(i * 64, 950, 2, 2));
+        coordinator->addComponent<SpriteRenderer>(tile, SpriteRenderer(TEXTURE_TYPE_RAIL, 32, 32, 3));
+        coordinator->addComponent<Tag>(tile, Tag("rail"));
+        coordinator->addComponent<Parralax>(tile, Parralax(400, i));
+        auto &spriteRenderer = coordinator->_componentManager->getComponent<SpriteRenderer>(tile);
+        spriteRenderer._color = sf::Color(220, 220, 220);
+    }
+
+    for (int i = 0; i < 4; i++) {
+        Entity middleGround = coordinator->createEntity();
+        coordinator->addComponent<Transform>(middleGround, Transform(i * 384 * 2, 720, 4, 4));
+        coordinator->addComponent<SpriteRenderer>(middleGround, SpriteRenderer(TEXTURE_TYPE_MIDDLEGROUND, 192, 96, 2));
+        coordinator->addComponent<Tag>(middleGround, Tag("middleGround"));
+        coordinator->addComponent<Parralax>(middleGround, Parralax(200));
+        auto &spriteRenderer = coordinator->_componentManager->getComponent<SpriteRenderer>(middleGround);
+        spriteRenderer._color = sf::Color(140, 140, 140);
+    }
+
+    for (int i = 0; i < 4; i++) {
+        Entity background = coordinator->createEntity();
+        coordinator->addComponent<Transform>(background, Transform(i * 288 * 4, 600, 4, 4));
+        coordinator->addComponent<SpriteRenderer>(background, SpriteRenderer(TEXTURE_TYPE_BACKGROUND, 288, 96, 1));
+        coordinator->addComponent<Tag>(background, Tag("background"));
+        coordinator->addComponent<Parralax>(background, Parralax(50));
+        auto &spriteRenderer = coordinator->_componentManager->getComponent<SpriteRenderer>(background);
+        spriteRenderer._color = sf::Color(80, 80, 80);
+    }
+
+    Entity moon = coordinator->createEntity();
+    coordinator->addComponent<Transform>(moon, Transform(1920 /2, 1080/2 - 150, 1.5, 1.5));
+    coordinator->addComponent<SpriteRenderer>(moon, SpriteRenderer(TEXTURE_TYPE_MOON, 256, 256, 0));
+    coordinator->addComponent<Tag>(moon, Tag("moon"));
+    coordinator->addComponent<Animator>(moon, Animator(Animation(2, 0.5)));
+
 }
 
 void createPlayer(std::shared_ptr<Coordinator> coordinator)
 {
     Entity player = coordinator->createEntity();
 
-    coordinator->addComponent<Transform>(player, Transform(300, 400, 1, 1));
-    coordinator->addComponent<SpriteRenderer>(player, SpriteRenderer(TEXTURE_TYPE_EXAMPLE, 32, 32));
+    coordinator->addComponent<Transform>(player, Transform(300, 900, 2, 2));
+    coordinator->addComponent<SpriteRenderer>(player, SpriteRenderer(TEXTURE_TYPE_EXAMPLE, 32, 32, 5));
     coordinator->addComponent<Tag>(player, Tag("player"));
     coordinator->addComponent<PlayerController>(player);
+    auto &spriteRenderer = coordinator->_componentManager->getComponent<SpriteRenderer>(player);
 }
 
 int main()

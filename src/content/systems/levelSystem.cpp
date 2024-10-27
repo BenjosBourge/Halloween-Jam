@@ -23,9 +23,7 @@ void LevelSystem::update(float deltaTime)
     std::shared_ptr<Coordinator> coordinator = getCoordinator();
 
     for (auto const& entity : _entitiesThisFrame) {
-        auto &playerController = coordinator->getComponent<LevelSystem>(entity);
-        auto &transform = coordinator->getComponent<Transform>(entity);
-
+        auto &playerController = coordinator->getComponent<Level>(entity);
     }
 }
 

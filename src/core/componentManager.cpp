@@ -33,6 +33,8 @@ void ComponentManager::init()
     registerComponent<Text>();
     registerComponent<PlayerController>();
     registerComponent<RigidBody>();
+    registerComponent<Level>();
+    registerComponent<Parralax>();
 }
 
 void ComponentManager::entityDestroyed(Entity entity)

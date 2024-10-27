@@ -8,10 +8,13 @@
 #include <queue>
 #include <map>
 
-class Level {
+class Parralax {
 public:
-    Level();
-    ~Level();
+    Parralax();
+    Parralax(float speed);
+    Parralax(float speed, int id);
+    ~Parralax();
 
     float _speed;
+    int _id;
 };

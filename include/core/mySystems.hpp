@@ -17,4 +17,6 @@
 #include "systems/physicsSystem.hpp"
 
 #include "../systems/playerMovementSystem.hpp"
+#include "../systems/levelSystem.hpp"
+#include "../systems/parralaxSystem.hpp"
 
