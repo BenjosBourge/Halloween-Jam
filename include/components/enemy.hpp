@@ -8,17 +8,14 @@
 #include <queue>
 #include <map>
 
-class PlayerController {
+class Enemy {
 public:
-    PlayerController();
-    ~PlayerController();
-
-    bool _jumping;
-    float _timeBigJump;
-    bool _stoppedJumping;
+    Enemy();
+    Enemy(float speed);
+    ~Enemy();
 
     float _speed;
-    float _timeNoControl;
-
-    int _mode;
+    int _type;
+    float _timeCreation;
+    float _yCreation;
 };

@@ -14,4 +14,9 @@ public:
     ~Level();
 
     float _speed;
+    float _timerEnemy;
+    float _timerToGenerateEnemy;
+
+    float _timerMode;
+    float _timerTransition;
 };

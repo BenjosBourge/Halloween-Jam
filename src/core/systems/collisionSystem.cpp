@@ -31,19 +31,19 @@ void CollisionSystem::update(float deltaTime)
     for (auto entity: _entitiesThisFrame) {
         auto &boxCollider = coordinator->_componentManager->getComponent<BoxCollider>(entity);
         if (boxCollider._mode == COLLISION_MODE_STATIC)
-            return;
+            continue;
         auto &transform = coordinator->_componentManager->getComponent<Transform>(entity);
         boxCollider._entitiesCollided.clear();
 
         for (auto entity2: _entitiesThisFrame) {
             if (entity == entity2)
-                return;
+                continue;
             if (!coordinator->hasComponent<BoxCollider>(entity2))
-                return;
+                continue;
 
             auto &boxCollider2 = coordinator->_componentManager->getComponent<BoxCollider>(entity2);
             if ((boxCollider._mask & boxCollider2._layer) == 0)
-                return;
+                continue;
             auto &transform2 = coordinator->_componentManager->getComponent<Transform>(entity2);
 
             if (!(transform._x + boxCollider._offsetX + boxCollider._width / 2 <= transform2._x + boxCollider2._offsetX - boxCollider2._width / 2 ||

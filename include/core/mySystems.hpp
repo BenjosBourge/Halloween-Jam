@@ -19,4 +19,5 @@
 #include "../systems/playerMovementSystem.hpp"
 #include "../systems/levelSystem.hpp"
 #include "../systems/parralaxSystem.hpp"
+#include "../systems/enemySystem.hpp"
 

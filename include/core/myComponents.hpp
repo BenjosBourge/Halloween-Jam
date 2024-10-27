@@ -22,3 +22,4 @@
 #include "../components/playerController.hpp"
 #include "../components/level.hpp"
 #include "../components/parralax.hpp"
+#include "../components/enemy.hpp"

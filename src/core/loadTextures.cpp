@@ -23,4 +23,10 @@ void Coordinator::loadTextures()
 
     texture.loadFromFile("assets/moon.png");
     _textures.emplace_back(TEXTURE_TYPE_MOON, texture);
+
+    texture.loadFromFile("assets/enemies.png");
+    _textures.emplace_back(TEXTURE_TYPE_ENEMIES, texture);
+
+    texture.loadFromFile("assets/jack.png");
+    _textures.emplace_back(TEXTURE_TYPE_JACK, texture);
 }

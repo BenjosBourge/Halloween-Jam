@@ -71,10 +71,12 @@ void createLevel(std::shared_ptr<Coordinator> coordinator)
     }
 
     Entity moon = coordinator->createEntity();
-    coordinator->addComponent<Transform>(moon, Transform(1920 /2, 1080/2 - 150, 1.5, 1.5));
+    coordinator->addComponent<Transform>(moon, Transform(1920 /2, 1080/2, 1.5, 1.5));
     coordinator->addComponent<SpriteRenderer>(moon, SpriteRenderer(TEXTURE_TYPE_MOON, 256, 256, 0));
     coordinator->addComponent<Tag>(moon, Tag("moon"));
     coordinator->addComponent<Animator>(moon, Animator(Animation(2, 0.5)));
+    auto &spriteRenderer = coordinator->_componentManager->getComponent<SpriteRenderer>(moon);
+    spriteRenderer._color = sf::Color(220, 220, 220);
 
 }
 
@@ -83,10 +85,12 @@ void createPlayer(std::shared_ptr<Coordinator> coordinator)
     Entity player = coordinator->createEntity();
 
     coordinator->addComponent<Transform>(player, Transform(300, 900, 2, 2));
-    coordinator->addComponent<SpriteRenderer>(player, SpriteRenderer(TEXTURE_TYPE_EXAMPLE, 32, 32, 5));
+    coordinator->addComponent<SpriteRenderer>(player, SpriteRenderer(TEXTURE_TYPE_JACK, 64, 64, 5));
     coordinator->addComponent<Tag>(player, Tag("player"));
     coordinator->addComponent<PlayerController>(player);
     auto &spriteRenderer = coordinator->_componentManager->getComponent<SpriteRenderer>(player);
+    coordinator->addComponent<BoxCollider>(player, BoxCollider(32, 32, COLLISION_MODE_DYNAMIC));
+    coordinator->addComponent<Animator>(player, Animator(Animation(2, 0.1)));
 }
 
 int main()

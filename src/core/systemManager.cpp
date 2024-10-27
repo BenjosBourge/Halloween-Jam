@@ -38,6 +38,7 @@ void SystemManager::init()
 
     registerSystem<LevelSystem>();
     registerSystem<ParralaxSystem>();
+    registerSystem<EnemySystem>();
 }
 
 void SystemManager::entityDestroyed(Entity entity)

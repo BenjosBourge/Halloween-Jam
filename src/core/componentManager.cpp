@@ -35,6 +35,7 @@ void ComponentManager::init()
     registerComponent<RigidBody>();
     registerComponent<Level>();
     registerComponent<Parralax>();
+    registerComponent<Enemy>();
 }
 
 void ComponentManager::entityDestroyed(Entity entity)
